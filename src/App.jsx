@@ -1,21 +1,17 @@
-import React from 'react';
-import './App.css';
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Navbar from "./Components/Navbar.jsx";
-import {Home, About, Projects, Contact} from "./Pages/index.js";
+import { SceneRotation } from "./helpers/SceneRotation";
+import { useRef } from "react";
+import Navbar from "./Components/Navbar";
+import Home from "./Pages/Home";
 
 function App() {
-    return (
-        <Router>
-            <Navbar/>
-             <Routes>
-                <Route path="/" element={<Home />}/>
-                <Route path="/about" element={<About />}/>
-                <Route path="/projects" element={<Projects />}/>
-                <Route path="/contact" element={<Contact />}/>
-            </Routes>
-        </Router>
-    );
+  const rotationRef = useRef();
+
+  return (
+      <SceneRotation.Provider value={{ rotationRef }}>
+        <Navbar />
+        <Home rotationRef={rotationRef} />
+      </SceneRotation.Provider>
+  );
 }
 
 export default App;
