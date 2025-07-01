@@ -5,25 +5,22 @@ License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 Source: https://sketchfab.com/3d-models/moon-fc1e78cfc65549c6a49e88ba599b7901
 Title: Moon
 */
-import React, {forwardRef, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 import PlanetModel from '../assets/3d/Planet.glb';
 
-// ✅ Accept and forward the ref to control rotation from parent
 const Planet = React.forwardRef((props, ref) => {
-    const { scene } = useGLTF(PlanetModel);
+  const { scene } = useGLTF(PlanetModel);
 
-    useEffect(() => {
-        if (ref) console.log("[PLANET] Ref attached to planet mesh ✅");
-    }, [ref]);
+  useEffect(() => {
+    if (ref) console.log("[PLANET] Ref attached to planet mesh ✅");
+  }, [ref]);
 
-    return (
-        <mesh ref={ref} {...props}>
-            <primitive object={scene} />
-        </mesh>
-    );
+  return (
+    <mesh ref={ref} {...props}>
+      <primitive object={scene} />
+    </mesh>
+  );
 });
 
-
 export default Planet;
-

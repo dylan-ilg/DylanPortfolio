@@ -13,28 +13,23 @@ function Navbar() {
     console.log(`[NAVBAR] Clicked: ${targetKey}`);
     const target = NAV_ROTATIONS[targetKey];
     if (rotationRef?.current) {
-      rotateToAngle(rotationRef, setRotationY, target); // ✅ Pass setRotationY
+      rotateToAngle(rotationRef, setRotationY, target);
     }
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 header flex items-center">
-      <button
-        onClick={() => handleNavClick("home")}
-        className="bg-sky-300 bg-opacity-70 border-2 border-white rounded-lg p-6 backdrop-blur-md shadow-lg"
-      >
-        <p className="text-white font-semibold text-lg underline hover:text-amber-200 transition">Home</p>
-      </button>
-
-      {["about", "projects", "contact"].map((key) => (
-        <button
-          key={key}
-          onClick={() => handleNavClick(key)}
-          className="bg-sky-300 bg-opacity-70 border-2 border-white rounded-lg p-6 backdrop-blur-md shadow-lg text-white font-semibold text-lg underline hover:text-amber-200 transition"
-        >
-          {key.charAt(0).toUpperCase() + key.slice(1)}
-        </button>
-      ))}
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div className="max-w-5xl mx-auto px-4 py-3 flex justify-center gap-4 sm:gap-6">
+        {["home", "about", "projects", "contact"].map((key) => (
+          <button
+            key={key}
+            onClick={() => handleNavClick(key)}
+            className="px-5 py-2.5 bg-sky-300 bg-opacity-70 border-2 border-white rounded-full text-white font-semibold text-sm tracking-wider shadow-lg hover:text-amber-200 transition-colors"
+          >
+            {key.charAt(0).toUpperCase() + key.slice(1)}
+          </button>
+        ))}
+      </div>
     </header>
   );
 }
