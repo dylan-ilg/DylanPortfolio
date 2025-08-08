@@ -11,15 +11,9 @@ function App() {
   return (
     <SceneRotation.Provider value={rotation}>
       <Navbar />
-      <Home
-        rotationRef={rotation.rotationRef}
-        isRotating={rotation.isRotating}
-        onPointerDown={rotation.onPointerDown}
-        onPointerMove={rotation.onPointerMove}
-        onPointerUp={rotation.onPointerUp}
-        rotationSpeed={rotation.rotationSpeed}
-        setRotationY={rotation.setRotationY}
-      />
+      <main className="relative min-h-screen bg-black text-white">
+        <Home />
+      </main>
     </SceneRotation.Provider>
   );
 }

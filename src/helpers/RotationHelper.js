@@ -1,8 +1,26 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 
-// Normalize rotationY to [0, 2π]
-const normalizeAngle = (angle) => ((angle % (2 * Math.PI)) + (2 * Math.PI)) % (2 * Math.PI);
+const TAU = Math.PI * 2;
+
+const normalizeAngle = (angle) =>
+  ((angle % TAU) + TAU) % TAU;
+
+const normalizeSigned = (angle) => {
+  let a = angle % TAU;
+  if (a <= -Math.PI) a += TAU;
+  if (a > Math.PI) a -= TAU;
+  return a;
+};
+
+const shortestDelta = (from, to) => {
+  const f = normalizeSigned(from);
+  const t = normalizeSigned(to);
+  let d = t - f;
+  if (d > Math.PI) d -= TAU;
+  if (d < -Math.PI) d += TAU;
+  return d;
+};
 
 const useRotationHelper = () => {
   const [rotationY, setRotationYState] = useState(0);
@@ -10,13 +28,19 @@ const useRotationHelper = () => {
   const rotationRef = useRef();
   const lastX = useRef(0);
   const rotationSpeed = useRef(0);
+  const hasRotatedFully = useRef(false);
   const [isRotating, setIsRotating] = useState(false);
+  const totalRotation = useRef(0);
 
   const updateRotation = (newY) => {
     const normalizedY = normalizeAngle(newY);
     setRotationYState(newY);
+    totalRotation.current += Math.abs(rotationSpeed.current);
 
-    // Define home range: around normalized 0.5 (roughly 0.4 - 0.6)
+    if (!hasRotatedFully.current && totalRotation.current >= TAU) {
+      hasRotatedFully.current = true;
+    }
+
     const inHomeRange = normalizedY >= 5.93 || normalizedY <= 0.7;
     setIsAtHomeView(inHomeRange);
   };
@@ -33,15 +57,57 @@ const useRotationHelper = () => {
     const delta = (clientX - lastX.current) / window.innerWidth;
 
     if (rotationRef.current) {
-      rotationRef.current.rotation.y += delta * 0.5 * Math.PI;
+      const rotationDelta = delta * 0.5 * Math.PI;
+      rotationRef.current.rotation.y += rotationDelta;
+      rotationSpeed.current = rotationDelta;
       updateRotation(rotationRef.current.rotation.y);
     }
 
     lastX.current = clientX;
-    rotationSpeed.current = delta * 0.5 * Math.PI;
   };
 
   const onPointerUp = () => setIsRotating(false);
+
+  useEffect(() => {
+    const handleWheel = (e) => {
+      console.log(
+        "[WHEEL EVENT] target:",
+        e.target,
+        "| closest .scroll-area:",
+        e.target.closest?.(".scroll-area")
+      );
+
+      // Only rotate if not inside any scrollable card
+      if (e.target.closest?.(".scroll-area")) {
+        console.log("[WHEEL EVENT] Inside scroll area → skipping rotation");
+        return;
+      }
+
+      e.preventDefault();
+      const delta = -e.deltaY * 0.001;
+      rotationRef.current.rotation.y += delta;
+      rotationSpeed.current = delta;
+      updateRotation(rotationRef.current.rotation.y);
+    };
+
+    const handleTouchMove = (e) => {
+      if (e.target.closest?.(".scroll-area")) {
+        console.log("[TOUCH MOVE] Inside scroll area → skipping rotation");
+        return;
+      }
+      e.preventDefault();
+    };
+
+    document.body.style.overflow = 'hidden';
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
 
   return {
     rotationRef,
@@ -53,6 +119,7 @@ const useRotationHelper = () => {
     onPointerMove,
     onPointerUp,
     rotationSpeed,
+    hasRotatedFully,
   };
 };
 
@@ -70,11 +137,15 @@ export const RotationBehavior = ({ rotationRef, rotationSpeed, setRotationY }) =
   return null;
 };
 
-export const rotateToAngle = (rotationRef, setRotationY, targetY, speed = 0.05) => {
-  const currentY = rotationRef.current?.rotation?.y || 0;
-  const delta = targetY - currentY;
+export const rotateToAngle = (rotationRef, setRotationY, targetAngle, speed = 0.05) => {
+  if (!rotationRef?.current) return;
+
+  const current = rotationRef.current.rotation.y;
+  const delta = shortestDelta(current, targetAngle);
   const direction = Math.sign(delta);
   let steps = Math.ceil(Math.abs(delta) / speed);
+
+  rotationRef.current.isAutoRotating = true;
 
   const interval = setInterval(() => {
     if (!rotationRef.current?.rotation) return;
@@ -84,9 +155,10 @@ export const rotateToAngle = (rotationRef, setRotationY, targetY, speed = 0.05) 
 
     steps--;
     if (steps <= 0) {
-      rotationRef.current.rotation.y = targetY;
-      setRotationY(targetY);
+      rotationRef.current.rotation.y = targetAngle;
+      setRotationY(targetAngle);
       clearInterval(interval);
+      rotationRef.current.isAutoRotating = false;
     }
   }, 16);
 };
@@ -97,15 +169,16 @@ export const NAV_ROTATIONS = {
   projects: -3,
   contact: -5,
 };
-export const isInViewRange = (rotationY, targetAngle, buffer = 0.5) => {
-  const normalized = ((rotationY % (2 * Math.PI)) + (2 * Math.PI)) % (2 * Math.PI);
-  const target = ((targetAngle % (2 * Math.PI)) + (2 * Math.PI)) % (2 * Math.PI);
 
-  const lower = (target - buffer + 2 * Math.PI) % (2 * Math.PI);
-  const upper = (target + buffer) % (2 * Math.PI);
+export const isInViewRange = (rotationY, targetAngle, buffer = 0.5) => {
+  const normalized = normalizeAngle(rotationY);
+  const target = normalizeAngle(targetAngle);
+  const lower = (target - buffer + TAU) % TAU;
+  const upper = (target + buffer) % TAU;
 
   return lower < upper
     ? normalized >= lower && normalized <= upper
     : normalized >= lower || normalized <= upper;
 };
+
 export default useRotationHelper;
