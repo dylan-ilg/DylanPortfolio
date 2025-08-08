@@ -6,8 +6,8 @@ import TieFighter from '../models/TieFighter.jsx';
 import Space from '../models/Space.jsx';
 import XWing from '../models/XWing.jsx';
 import Planet from '../models/Planet.jsx';
+import MillenniumFalcon from '../models/MillenniumFalcon.jsx';
 import HeroBanner from '../Components/HeroBanner.jsx';
-import Footer from '../Components/Footer.jsx'; // ✅ Add Footer
 import { useSceneRotation } from '../helpers/SceneRotation';
 import { RotationBehavior } from '../helpers/RotationHelper';
 import { About, Contact, Projects } from "./index.js";
@@ -36,6 +36,7 @@ const Home = () => {
   const tieOrbitRef = useRef();
   const xwingOrbitRef = useRef();
   const spaceOrbitRef = useRef();
+  const falconOrbitRef = useRef();
 
   return (
     <main className="w-full min-h-screen bg-black text-white overflow-x-hidden">
@@ -77,6 +78,14 @@ const Home = () => {
               <XWing position={[3, -1, 4]} scale={[0.02, 0.02, 0.02]} rotation={[0.9, -4.4, 0]} />
             </group>
 
+            <group ref={falconOrbitRef}>
+              <MillenniumFalcon
+                position={[1, -20, 47]}
+                scale={[0.5, 0.5, 0.5]}
+                rotation={[0.9, -3.8, 0.05]}
+              />
+            </group>
+
             <Planet
               position={[0, -7, -2]}
               scale={[4.5, 4.5, 4.5]}
@@ -100,6 +109,7 @@ const Home = () => {
 
             {/* Sync orbits */}
             <OrbitSync sourceRef={rotationRef} targetRef={xwingOrbitRef} />
+            <OrbitSync sourceRef={rotationRef} targetRef={falconOrbitRef} />
             <OrbitSync sourceRef={rotationRef} targetRef={tieOrbitRef} />
             <OrbitSync sourceRef={rotationRef} targetRef={spaceOrbitRef} />
           </Suspense>
@@ -111,9 +121,6 @@ const Home = () => {
       <About />
       <Projects />
       <Contact />
-
-      {/* === FOOTER === */}
-      <Footer />
     </main>
   );
 };

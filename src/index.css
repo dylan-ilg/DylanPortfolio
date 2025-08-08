@@ -196,6 +196,5 @@ body:has(.card[data-color="green"]:hover) {
 html, body {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* 🚫 Disable natural scrolling */
   height: 100%;
 }
