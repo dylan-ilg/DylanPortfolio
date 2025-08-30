@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSceneRotation } from "../helpers/SceneRotation";
 import { isInViewRange, NAV_ROTATIONS } from "../helpers/RotationHelper";
@@ -12,12 +12,6 @@ const Contact = () => {
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    if (isVisible) {
-      setExpanded(true);
-    }
-  }, [isVisible]);
-
   const toggleCard = () => setExpanded((prev) => !prev);
 
   const handleCopyEmail = () => {
@@ -28,94 +22,91 @@ const Contact = () => {
   };
 
   return (
-    isVisible && (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.4 }}
-        className="absolute top-32 left-1/2 transform -translate-x-1/2 z-40 text-center pointer-events-auto w-full max-w-5xl px-4"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isVisible ? 1 : 0 }}
+      transition={{ duration: 0.4 }}
+      className={`absolute top-32 left-1/2 transform -translate-x-1/2 z-40 text-center w-full max-w-5xl px-4 ${
+        isVisible ? "pointer-events-auto" : "pointer-events-none"
+      }`}
+    >
+      <button
+        className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 text-cyan-100 font-semibold text-lg rounded-full border border-white hover:bg-opacity-30 transition"
+        onClick={toggleCard}
       >
-        <button
-          className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 text-cyan-100 font-semibold text-lg rounded-full border border-white hover:bg-opacity-30 transition"
-          onClick={toggleCard}
-        >
-          {expanded ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
-          Contact
-        </button>
+        {expanded ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
+        Contact
+      </button>
 
-        <AnimatePresence>
-          {expanded && (
-            <motion.div
-              key="contact-details"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4 }}
-              className="mt-6 bg-green-400 bg-opacity-80 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-white overflow-hidden"
+      <AnimatePresence initial={false}>
+        {expanded && (
+          <motion.div
+            key="contact-details"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mt-6 bg-green-400 bg-opacity-80 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-white overflow-hidden"
+          >
+            <div
+              className="overflow-y-auto p-6 scroll-area"
+              style={{ maxHeight: "400px" }}
+              onWheel={(e) => e.stopPropagation()}
             >
-              <div
-                className="overflow-y-auto p-6 scroll-area"
-                style={{ maxHeight: "400px" }}
-                onWheel={(e) => e.stopPropagation()}
-              >
-                <h2 className="text-2xl font-bold mb-4">Let’s Connect</h2>
-                <p className="mb-6">
-                  Whether you’re hiring for a role, seeking a collaborator, or just want to chat about tech —
-                  I’d love to connect and see how I can add value to your team.
-                </p>
+              <h2 className="text-2xl font-bold mb-4">Let’s Connect</h2>
+              <p className="mb-6">
+                Whether you’re hiring for a role, seeking a collaborator, or just want to chat about tech — I’d
+                love to connect and see how I can add value to your team.
+              </p>
 
-                <div className="flex flex-col items-center gap-4">
-                  {/* LinkedIn */}
-                  <a
-                    href="https://www.linkedin.com/in/dylan-ilg/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 hover:text-blue-200 transition"
-                  >
-                    <FaLinkedin size={28} />
-                    <span>LinkedIn</span>
-                  </a>
+              <div className="flex flex-col items-center gap-4">
+                {/* LinkedIn */}
+                <a
+                  href="https://www.linkedin.com/in/dylan-ilg/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-blue-200 transition"
+                >
+                  <FaLinkedin size={28} />
+                  <span>LinkedIn</span>
+                </a>
 
-                  {/* Instagram */}
-                  <a
-                    href="https://www.instagram.com/dylan.ilg/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 hover:text-pink-200 transition"
-                  >
-                    <FaInstagram size={28} />
-                    <span>Instagram</span>
-                  </a>
+                {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/dylan.ilg/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-pink-200 transition"
+                >
+                  <FaInstagram size={28} />
+                  <span>Instagram</span>
+                </a>
 
-                  {/* GitHub */}
-                  <a
-                    href="https://github.com/dylan-ilg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 hover:text-gray-300 transition"
-                  >
-                    <FaGithub size={28} />
-                    <span>GitHub</span>
-                  </a>
+                {/* GitHub */}
+                <a
+                  href="https://github.com/dylan-ilg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-gray-300 transition"
+                >
+                  <FaGithub size={28} />
+                  <span>GitHub</span>
+                </a>
 
-                  {/* Email */}
-                  <button
-                    onClick={handleCopyEmail}
-                    className="flex items-center gap-2 hover:text-yellow-200 transition"
-                  >
-                    <MdEmail size={28} />
-                    <span>
-                      dylan.scott.ilg@gmail.com {copied && "(Copied!)"}
-                    </span>
-                  </button>
-                </div>
+                {/* Email */}
+                <button
+                  onClick={handleCopyEmail}
+                  className="flex items-center gap-2 hover:text-yellow-200 transition"
+                >
+                  <MdEmail size={28} />
+                  <span>dylan.scott.ilg@gmail.com {copied && "(Copied!)"}</span>
+                </button>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    )
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
