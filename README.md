@@ -43,29 +43,21 @@ Clone the repo:
 ```bash
 git clone https://github.com/dylan-ilg/your-repo-name.git
 cd your-repo-name
+
 Install dependencies:
-
-bash
-Copy code
 npm install
+
 Run the development server:
-
-bash
-Copy code
 npm run dev
+
 Build for production:
-
-bash
-Copy code
 npm run build
-Preview production build:
 
-bash
-Copy code
+Preview production build:
 npm run preview
+
 📂 Project Structure
-php
-Copy code
+
 ├── public/              # Static assets (images, models)
 ├── src/
 │   ├── Components/      # UI components (Navbar, HeroBanner, Loader, etc.)
@@ -82,13 +74,8 @@ Copy code
 └── README.md
 👨‍💻 About Me
 I’m Dylan Ilg, a Computer Science student at UNC Charlotte (Software Engineering concentration, graduating Aug 2025).
-I enjoy building creative, scalable applications across full-stack web development, Android apps, and interactive 3D interfaces.
 
 📍 Based in Charlotte, NC (Open to Remote)
-
-💼 LinkedIn
-
-💻 GitHub
 
 📜 License
 This project is open-sourced under the MIT License.
