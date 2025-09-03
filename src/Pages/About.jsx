@@ -49,11 +49,10 @@ const About = () => {
       transition={{ duration: 0.4 }}
       className={`absolute top-32 left-1/2 transform -translate-x-1/2 z-40 text-center w-full max-w-5xl px-4
         ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
-      // keep it mounted always so state persists across rotations
     >
-      {/* Toggle button */}
+      {/* Projects-style toggle button */}
       <button
-        className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 text-cyan-100 font-semibold text-lg rounded-full border border-white hover:bg-opacity-30 transition drop-shadow-[0_0_6px_rgba(0,255,255,0.6)]"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-900/40 text-cyan-200 font-semibold text-lg rounded-full border border-white hover:bg-cyan-900/55 transition"
         onClick={toggleCard}
       >
         {expanded ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
@@ -69,7 +68,8 @@ const About = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-6 bg-sky-300 bg-opacity-80 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-100 overflow-hidden"
+            // Projects-style panel colors
+            className="mt-6 bg-cyan-900/40 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-200 overflow-hidden"
           >
             <div
               className="overflow-y-auto p-6"
@@ -84,7 +84,7 @@ const About = () => {
                   className="w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg mx-auto md:mx-0"
                 />
                 <div className="flex-1 text-left">
-                  <h2 className="text-2xl font-bold mb-3 text-cyan-200 drop-shadow-md">
+                  <h2 className="text-2xl font-bold mb-3 text-cyan-100 drop-shadow">
                     Hey, I'm Dylan 👋
                   </h2>
                   <p className="text-sm md:text-base">
@@ -104,26 +104,7 @@ const About = () => {
                   </p>
                 </div>
               </div>
-
-              {/* Tech Stack */}
-              <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-4 text-center text-cyan-200 drop-shadow-md">
-                  🧰 Tech Stack
-                </h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 justify-items-center">
-                  {technologies.map((tech) => (
-                    <div
-                      key={tech.name}
-                      className="flex flex-col items-center text-white hover:scale-110 transition-transform"
-                    >
-                      {tech.icon}
-                      <span className="text-sm mt-1 text-cyan-100 drop-shadow-sm">
-                        {tech.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              {/* If you want the tech grid back here later, it will inherit these colors automatically. */}
             </div>
           </motion.div>
         )}

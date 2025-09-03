@@ -2,46 +2,64 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSceneRotation } from "../helpers/SceneRotation";
 import { isInViewRange, NAV_ROTATIONS } from "../helpers/RotationHelper";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { FaGithub } from "react-icons/fa";
+import { FiChevronDown, FiChevronUp, FiExternalLink } from "react-icons/fi";
+import { FaGithub, FaRegFileAlt } from "react-icons/fa";
+
+/* -------------------------------- data ---------------------------------- */
 
 const projects = [
   {
-    title: "HICE – Education Tool (Full-Stack)",
-    img: "https://picsum.photos/seed/hice/600/360",
-    repo: "https://github.com/your-username/hice-edu",
+    title: "EDUKona ",
+    img: "/edukona.png",
+    website: "https://edukona.com/",
+    paper: "https://www.computer.org/csdl/proceedings-article/fie/2024/10892814/24EnhDJDV6M", // added paper link
+    repo: "https://github.com/uncc-hice/edukona_frontend?tab=readme-ov-file",
+    tech: ["React", "Django", "MUI", "Python", "Javascript", "PostgreSQL"],
+  },
+  {
+    title: "OpenAI API Project",
+    img: "/ChatGPT.jpg",
+    repo: "https://github.com/dylan-ilg/saas-starter",
+    tech: ["Next.js", "OpenAI API", "PostgreSQL", "tailwind"],
+  },
+  {
+    title: "ThreeJs 3D Portfolio",
+    img: "/PortfolioSnippit.png",
+    repo: "https://github.com/dylan-ilg/DylanPortfolio",
+    tech: ["React", "three.js", "react-three-fiber", "Tailwind"],
+  },
+  {
+    title: "Android Google Maps API app",
+    img: "/googlemaps.jpg",
+    repo: "https://github.com/dylan-ilg/AndriodMapsApp",
+    tech: ["Android", "Java", "Google Maps SDK"],
   },
   {
     title: "Power Picks – Discord Bot (Java)",
-    img: "https://picsum.photos/seed/powerpicks/600/360",
-    repo: "https://github.com/your-username/power-picks-bot",
-  },
-  {
-    title: "SaaS Starter (Django + React)",
-    img: "https://picsum.photos/seed/saas/600/360",
-    repo: "https://github.com/your-username/saas-starter",
-  },
-  {
-    title: "Portfolio 3D (R3F + GLSL)",
-    img: "https://picsum.photos/seed/portfolio3d/600/360",
-    repo: "https://github.com/your-username/portfolio-3d",
-  },
-  {
-    title: "Android Fitness Tracker",
-    img: "https://picsum.photos/seed/fitness/600/360",
-    repo: "https://github.com/your-username/android-fitness",
-  },
-  {
-    title: "REST API Boilerplate (DRF)",
-    img: "https://picsum.photos/seed/drf/600/360",
-    repo: "https://github.com/your-username/drf-boilerplate",
+    img: "/discordart.jpg",
+    repo: "https://github.com/dylan-ilg/PowerPlayz",
+    tech: ["Java", "Maven", "JDA API"],
   },
 ];
+
+/* ------------------------------ component -------------------------------- */
+
+const Chip = ({ children }) => (
+  <span
+    className="
+      inline-flex items-center px-2 py-0.5 rounded-full
+      text-[11px] md:text-xs font-medium
+      text-cyan-200/95 border border-white/50
+      bg-cyan-900/30 backdrop-blur
+    "
+  >
+    {children}
+  </span>
+);
 
 const Projects = () => {
   const { rotationY } = useSceneRotation();
   const isVisible = isInViewRange(rotationY, NAV_ROTATIONS.projects, 0.5);
-
   const [expanded, setExpanded] = useState(false);
 
   const toggleCard = () => setExpanded((prev) => !prev);
@@ -51,13 +69,13 @@ const Projects = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.4 }}
-      className={`absolute top-32 left-1/2 transform -translate-x-1/2 z-40 text-center w-full max-w-5xl px-4 ${
+      className={`absolute top-32 left-1/2 -translate-x-1/2 z-40 text-center w-full max-w-5xl px-4 ${
         isVisible ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
       {/* Floating toggle button */}
       <button
-        className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 text-cyan-100 font-semibold text-lg rounded-full border border-white hover:bg-opacity-30 transition"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-900/40 text-cyan-200 font-semibold text-lg rounded-full border border-white hover:bg-cyan-900/55 transition"
         onClick={toggleCard}
       >
         {expanded ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
@@ -72,7 +90,10 @@ const Projects = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-6 bg-purple-400/80 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-white overflow-hidden"
+            className="
+              mt-6 bg-cyan-900/40 border-2 border-white rounded-xl
+              backdrop-blur-md shadow-xl text-cyan-200 overflow-hidden
+            "
           >
             {/* Scrollable area */}
             <div
@@ -89,8 +110,26 @@ const Projects = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.25, delay: idx * 0.03 }}
-                    className="group rounded-xl overflow-hidden border border-white/70 bg-white/10 backdrop-blur-lg shadow-lg"
+                    className="
+                      group rounded-xl overflow-hidden border border-white/70
+                      bg-white/5 backdrop-blur-lg shadow-lg
+                      text-cyan-200 flex flex-col
+                    "
                   >
+                    {/* Header: title and chips */}
+                    <header className="p-4 pb-3 text-left">
+                      <h3 className="text-base md:text-lg font-semibold mb-2 text-cyan-100 drop-shadow">
+                        {p.title}
+                      </h3>
+                      {p.tech?.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">
+                          {p.tech.map((t) => (
+                            <Chip key={t}>{t}</Chip>
+                          ))}
+                        </div>
+                      )}
+                    </header>
+
                     {/* Top image */}
                     <div className="relative">
                       <img
@@ -99,22 +138,54 @@ const Projects = () => {
                         className="h-40 w-full object-cover"
                         loading="lazy"
                       />
-                      {/* Subtle outline separating top/bottom */}
+                      {/* Subtle outline separating image/footer */}
                       <div className="absolute inset-x-0 bottom-0 h-px bg-white/60" />
                     </div>
 
-                    {/* Bottom area: caption + GitHub icon */}
-                    <div className="relative p-4">
-                      <h3 className="text-sm md:text-base font-semibold pr-10 text-cyan-50">
-                        {p.title}
-                      </h3>
+                    {/* Footer: website/paper + GitHub bottom-right */}
+                    <div className="flex justify-between items-end p-4 min-h-[72px]">
+                      <div className="flex gap-2 flex-wrap">
+                        {p.website && (
+                          <a
+                            href={p.website}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="
+                              inline-flex items-center gap-1 px-3 py-1 rounded-full
+                              border border-white/70 bg-cyan-900/30 hover:bg-cyan-900/50
+                              transition text-sm
+                            "
+                            aria-label={`Open ${p.title} website`}
+                          >
+                            <FiExternalLink className="h-4 w-4" />
+                            Website
+                          </a>
+                        )}
+                        {p.paper && (
+                          <a
+                            href={p.paper}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="
+                              inline-flex items-center gap-1 px-3 py-1 rounded-full
+                              border border-white/70 bg-cyan-900/30 hover:bg-cyan-900/50
+                              transition text-sm
+                            "
+                            aria-label={`Open ${p.title} paper`}
+                          >
+                            <FaRegFileAlt className="h-4 w-4" />
+                            Paper
+                          </a>
+                        )}
+                      </div>
 
                       <a
                         href={p.repo}
                         target="_blank"
                         rel="noreferrer"
                         aria-label={`Open ${p.title} on GitHub`}
-                        className="absolute bottom-3 right-3 inline-flex items-center justify-center rounded-full border border-white/70 bg-white/10 p-2 hover:bg-white/20 transition"
+                        className="inline-flex items-center justify-center rounded-full
+                                   border border-white/70 bg-white/10 p-2 hover:bg-white/20 transition"
                       >
                         <FaGithub className="h-5 w-5" />
                       </a>

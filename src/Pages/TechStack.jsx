@@ -5,18 +5,26 @@ import { isInViewRange, NAV_ROTATIONS } from "../helpers/RotationHelper";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import {
   SiReact,
+  SiMui,
   SiJavascript,
+  SiThreedotjs,
+  SiCss3,
+  SiHtml5,
   SiPython,
   SiDjango,
-  SiHtml5,
-  SiCss3,
-  SiTailwindcss,
-  SiNodedotjs,
+  SiC,
+  SiApachemaven,
   SiPostgresql,
-  SiVite,
+  SiJunit5,
+  SiPostman,
+  SiFigma,
+  SiSwagger,
+  SiGit,
+  SiGithub,
+  SiJira,
 } from "react-icons/si";
-import { FaJava } from "react-icons/fa";
-import { TbBrandCpp } from "react-icons/tb";
+import { FaJava, FaAws } from "react-icons/fa";
+import { TbApi } from "react-icons/tb";
 
 /* --- angle helpers so TechStack can live between Projects and Contact
        even if NAV_ROTATIONS.techstack isn't defined --- */
@@ -32,93 +40,133 @@ function midpointAngle(a, b) {
   return ((m % TWO_PI) + TWO_PI) % TWO_PI;
 }
 
-const items = [
-  { name: "React", icon: <SiReact className="w-8 h-8" /> },
-  { name: "JavaScript", icon: <SiJavascript className="w-8 h-8" /> },
-  { name: "Python", icon: <SiPython className="w-8 h-8" /> },
-  { name: "Django", icon: <SiDjango className="w-8 h-8" /> },
-  { name: "Node.js", icon: <SiNodedotjs className="w-8 h-8" /> },
-  { name: "PostgreSQL", icon: <SiPostgresql className="w-8 h-8" /> },
-  { name: "HTML5", icon: <SiHtml5 className="w-8 h-8" /> },
-  { name: "CSS3", icon: <SiCss3 className="w-8 h-8" /> },
-  { name: "Tailwind", icon: <SiTailwindcss className="w-8 h-8" /> },
-  { name: "Vite", icon: <SiVite className="w-8 h-8" /> },
-  { name: "Java", icon: <FaJava className="w-8 h-8" /> },
-  { name: "C++", icon: <TbBrandCpp className="w-8 h-8" /> },
+/* ------------------------------ data ------------------------------------ */
+const SECTIONS = [
+  {
+    title: "Front End",
+    items: [
+      { name: "React",      icon: <SiReact className="w-8 h-8 text-cyan-400" /> },
+      { name: "MUI",        icon: <SiMui className="w-8 h-8 text-sky-400" /> },
+      { name: "JavaScript", icon: <SiJavascript className="w-8 h-8 text-yellow-400" /> },
+      { name: "ThreeJS",    icon: <SiThreedotjs className="w-8 h-8 text-gray-200" /> },
+      { name: "CSS",        icon: <SiCss3 className="w-8 h-8 text-blue-500" /> },
+      { name: "HTML",       icon: <SiHtml5 className="w-8 h-8 text-orange-500" /> },
+    ],
+  },
+  {
+    title: "Back End",
+    items: [
+      { name: "Python",     icon: <SiPython className="w-8 h-8 text-blue-400" /> },
+      { name: "Java",       icon: <FaJava className="w-8 h-8 text-red-500" /> },
+      { name: "C",          icon: <SiC className="w-8 h-8 text-blue-600" /> },
+      { name: "Django",     icon: <SiDjango className="w-8 h-8 text-green-500" /> },
+      { name: "DRF",        icon: <TbApi className="w-8 h-8 text-rose-400" /> }, // Django REST Framework
+      { name: "Maven",      icon: <SiApachemaven className="w-8 h-8 text-red-600" /> },
+      { name: "PostgreSQL", icon: <SiPostgresql className="w-8 h-8 text-sky-400" /> },
+    ],
+  },
+  {
+    title: "Testing / Deployment",
+    items: [
+      { name: "AWS",        icon: <FaAws className="w-8 h-8" /> }, // swapped from SiAmazonaws -> FaAws
+      { name: "JUnit",      icon: <SiJunit5 className="w-8 h-8 text-green-600" /> },
+      { name: "Postman",    icon: <SiPostman className="w-8 h-8 text-orange-500" /> },
+      { name: "Figma",      icon: <SiFigma className="w-8 h-8 text-pink-500" /> },
+      { name: "Swagger",    icon: <SiSwagger className="w-8 h-8 text-green-500" /> },
+    ],
+  },
+  {
+    title: "Developer Tools",
+    items: [
+      { name: "Git",        icon: <SiGit className="w-8 h-8 text-orange-600" /> },
+      { name: "GitHub",     icon: <SiGithub className="w-8 h-8 text-gray-200" /> },
+      { name: "Jira",       icon: <SiJira className="w-8 h-8 text-blue-500" /> },
+    ],
+  },
 ];
 
+/* ---------------------------- component ---------------------------------- */
 const TechStack = () => {
   const { rotationY } = useSceneRotation();
 
   // Use NAV_ROTATIONS.techstack if available, otherwise midpoint between Projects and Contact
   const targetAngle = useMemo(() => {
-    const hasKey =
-      NAV_ROTATIONS && Number.isFinite(NAV_ROTATIONS.techstack);
+    const hasKey = NAV_ROTATIONS && Number.isFinite(NAV_ROTATIONS.techstack);
     return hasKey
-      ? NAV_ROTATIONS.techstack
-      : midpointAngle(NAV_ROTATIONS.projects, NAV_ROTATIONS.contact);
+        ? NAV_ROTATIONS.techstack
+        : midpointAngle(NAV_ROTATIONS.projects, NAV_ROTATIONS.contact);
   }, []);
 
   const isVisible = isInViewRange(rotationY, targetAngle, 0.5);
 
-  // Starts collapsed; only opens on user click
   const [expanded, setExpanded] = useState(false);
   const toggleCard = () => setExpanded((prev) => !prev);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isVisible ? 1 : 0 }}
-      transition={{ duration: 0.4 }}
-      className={`absolute top-32 left-1/2 transform -translate-x-1/2 z-40 text-center w-full max-w-5xl px-4 ${
-        isVisible ? "pointer-events-auto" : "pointer-events-none"
-      }`}
-    >
-      {/* 🔘 The button you wanted, same styling + chevron icon + "Tech Stack" label */}
-      <button
-        className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 text-cyan-100 font-semibold text-lg rounded-full border border-white hover:bg-opacity-30 transition"
-        onClick={toggleCard}
+      <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isVisible ? 1 : 0 }}
+          transition={{ duration: 0.4 }}
+          className={`absolute top-32 left-1/2 transform -translate-x-1/2 z-40 text-center w-full max-w-5xl px-4 ${
+              isVisible ? "pointer-events-auto" : "pointer-events-none"
+          }`}
       >
-        {expanded ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
-        Tech Stack
-      </button>
+        {/* Projects-style button */}
+        <button
+            className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-900/40 text-cyan-200 font-semibold text-lg rounded-full border border-white hover:bg-cyan-900/55 transition"
+            onClick={toggleCard}
+        >
+          {expanded ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
+          Tech Stack
+        </button>
 
-      <AnimatePresence initial={false}>
-        {expanded && (
-          <motion.div
-            key="techstack-details"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mt-6 bg-indigo-400/80 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-white overflow-hidden"
-          >
-            <div
-              className="overflow-y-auto p-6"
-              style={{ maxHeight: "400px" }}
-              onWheel={(e) => e.stopPropagation()}
-            >
-              <h2 className="text-2xl font-bold mb-4">Tools I Work With</h2>
-              <p className="mb-6 max-w-3xl mx-auto">
-                I ship with React + Tailwind on the front, Python/Django or Node on the back, and modern tooling end-to-end.
-              </p>
+        <AnimatePresence initial={false}>
+          {expanded && (
+              <motion.div
+                  key="techstack-details"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="mt-6 bg-cyan-900/40 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-200 overflow-hidden"
+              >
+                <div
+                    className="overflow-y-auto p-6"
+                    style={{ maxHeight: "400px" }}
+                    onWheel={(e) => e.stopPropagation()}
+                >
+                  <h2 className="text-2xl font-bold mb-2 text-cyan-100 drop-shadow">
+                    Tools I Work With
+                  </h2>
+                  <p className="mb-6 max-w-3xl mx-auto">
+                    I ship with React on the front end and Python/Django on the back, and use modern tooling end-to-end.
+                  </p>
 
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 justify-items-center">
-                {items.map((t) => (
-                  <div
-                    key={t.name}
-                    className="flex flex-col items-center hover:scale-110 transition-transform"
-                  >
-                    {t.icon}
-                    <span className="text-sm mt-1">{t.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+                  {SECTIONS.map((section, sIdx) => (
+                      <div key={section.title} className={sIdx > 0 ? "mt-8" : ""}>
+                        <h3 className="text-xl font-semibold mb-4 text-cyan-100 drop-shadow">
+                          {section.title}
+                        </h3>
+                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 justify-items-center">
+                          {section.items.map((t) => (
+                              <div
+                                  key={t.name}
+                                  className="flex flex-col items-center hover:scale-110 transition-transform"
+                              >
+                                {t.icon}
+                                <span className="text-sm mt-1 text-cyan-100 drop-shadow-sm">
+                          {t.name}
+                        </span>
+                              </div>
+                          ))}
+                        </div>
+                      </div>
+                  ))}
+                </div>
+              </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
   );
 };
 
