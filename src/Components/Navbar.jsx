@@ -21,18 +21,15 @@ function midpointAngle(a, b) {
 function Navbar() {
   const { rotationRef, setRotationY } = useSceneRotation();
 
-  // Compute Tech Stack target **between** Projects and Contact
   const TECH_STACK_TARGET = useMemo(
     () => midpointAngle(NAV_ROTATIONS.projects, NAV_ROTATIONS.contact),
     []
   );
 
   useEffect(() => {
-    console.log("🧠 Navbar rendered");
   }, []);
 
   const handleNavClick = (targetKey) => {
-    console.log(`[NAVBAR] Clicked: ${targetKey}`);
     let target;
 
     if (targetKey === "techstack") {

@@ -5,7 +5,6 @@ import { isInViewRange, NAV_ROTATIONS } from "../helpers/RotationHelper";
 import { FiChevronDown, FiChevronUp, FiExternalLink } from "react-icons/fi";
 import { FaGithub, FaRegFileAlt } from "react-icons/fa";
 
-/* -------------------------------- data ---------------------------------- */
 
 const projects = [
   {
@@ -19,7 +18,7 @@ const projects = [
   {
     title: "OpenAI API Project",
     img: "/ChatGPT.jpg",
-    repo: "https://github.com/dylan-ilg/saas-starter",
+    repo: "https://github.com/dylan-ilg/ProjectNova",
     tech: ["Next.js", "OpenAI API", "PostgreSQL", "tailwind"],
   },
   {
@@ -35,14 +34,13 @@ const projects = [
     tech: ["Android", "Java", "Google Maps SDK"],
   },
   {
-    title: "Power Picks – Discord Bot (Java)",
+    title: "Power Picks – Discord Bot",
     img: "/discordart.jpg",
     repo: "https://github.com/dylan-ilg/PowerPlayz",
     tech: ["Java", "Maven", "JDA API"],
   },
 ];
 
-/* ------------------------------ component -------------------------------- */
 
 const Chip = ({ children }) => (
   <span
@@ -73,7 +71,6 @@ const Projects = () => {
         isVisible ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
-      {/* Floating toggle button */}
       <button
         className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-900/40 text-cyan-200 font-semibold text-lg rounded-full border border-white hover:bg-cyan-900/55 transition"
         onClick={toggleCard}
@@ -95,13 +92,11 @@ const Projects = () => {
               backdrop-blur-md shadow-xl text-cyan-200 overflow-hidden
             "
           >
-            {/* Scrollable area */}
             <div
               className="overflow-y-auto p-6 scroll-area"
               style={{ maxHeight: "400px" }}
               onWheel={(e) => e.stopPropagation()}
             >
-              {/* Grid 2 rows x 3 cols */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.map((p, idx) => (
                   <motion.article
@@ -116,7 +111,6 @@ const Projects = () => {
                       text-cyan-200 flex flex-col
                     "
                   >
-                    {/* Header: title and chips */}
                     <header className="p-4 pb-3 text-left">
                       <h3 className="text-base md:text-lg font-semibold mb-2 text-cyan-100 drop-shadow">
                         {p.title}
@@ -130,7 +124,6 @@ const Projects = () => {
                       )}
                     </header>
 
-                    {/* Top image */}
                     <div className="relative">
                       <img
                         src={p.img}
@@ -138,11 +131,9 @@ const Projects = () => {
                         className="h-40 w-full object-cover"
                         loading="lazy"
                       />
-                      {/* Subtle outline separating image/footer */}
                       <div className="absolute inset-x-0 bottom-0 h-px bg-white/60" />
                     </div>
 
-                    {/* Footer: website/paper + GitHub bottom-right */}
                     <div className="flex justify-between items-end p-4 min-h-[72px]">
                       <div className="flex gap-2 flex-wrap">
                         {p.website && (

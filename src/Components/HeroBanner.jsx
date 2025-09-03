@@ -14,9 +14,8 @@ const HeroBanner = () => {
         transition={{ duration: 0.5 }}
         className="absolute top-12 left-1/2 transform -translate-x-1/2 text-center z-40 p-8 pointer-events-none"
       >
-        {/* 🖼️ Image replacing the <h1> */}
         <a
-          href="/resume.pdf"
+          href="/DylanIlg.pdf"
           download
           className="mt-6 mb-6 px-6 py-3 bg-white text-black font-medium rounded-lg shadow-md hover:bg-blue-500 hover:text-white transition-colors pointer-events-auto inline-block"
         >

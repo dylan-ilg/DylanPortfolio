@@ -26,8 +26,7 @@ import {
 import { FaJava, FaAws } from "react-icons/fa";
 import { TbApi } from "react-icons/tb";
 
-/* --- angle helpers so TechStack can live between Projects and Contact
-       even if NAV_ROTATIONS.techstack isn't defined --- */
+
 const TWO_PI = Math.PI * 2;
 function angleDiff(a, b) {
   let d = (b - a) % TWO_PI;
@@ -40,7 +39,6 @@ function midpointAngle(a, b) {
   return ((m % TWO_PI) + TWO_PI) % TWO_PI;
 }
 
-/* ------------------------------ data ------------------------------------ */
 const SECTIONS = [
   {
     title: "Front End",
@@ -60,7 +58,7 @@ const SECTIONS = [
       { name: "Java",       icon: <FaJava className="w-8 h-8 text-red-500" /> },
       { name: "C",          icon: <SiC className="w-8 h-8 text-blue-600" /> },
       { name: "Django",     icon: <SiDjango className="w-8 h-8 text-green-500" /> },
-      { name: "DRF",        icon: <TbApi className="w-8 h-8 text-rose-400" /> }, // Django REST Framework
+      { name: "DRF",        icon: <TbApi className="w-8 h-8 text-rose-400" /> },
       { name: "Maven",      icon: <SiApachemaven className="w-8 h-8 text-red-600" /> },
       { name: "PostgreSQL", icon: <SiPostgresql className="w-8 h-8 text-sky-400" /> },
     ],
@@ -68,7 +66,7 @@ const SECTIONS = [
   {
     title: "Testing / Deployment",
     items: [
-      { name: "AWS",        icon: <FaAws className="w-8 h-8" /> }, // swapped from SiAmazonaws -> FaAws
+      { name: "AWS",        icon: <FaAws className="w-8 h-8" /> },
       { name: "JUnit",      icon: <SiJunit5 className="w-8 h-8 text-green-600" /> },
       { name: "Postman",    icon: <SiPostman className="w-8 h-8 text-orange-500" /> },
       { name: "Figma",      icon: <SiFigma className="w-8 h-8 text-pink-500" /> },
@@ -85,11 +83,9 @@ const SECTIONS = [
   },
 ];
 
-/* ---------------------------- component ---------------------------------- */
 const TechStack = () => {
   const { rotationY } = useSceneRotation();
 
-  // Use NAV_ROTATIONS.techstack if available, otherwise midpoint between Projects and Contact
   const targetAngle = useMemo(() => {
     const hasKey = NAV_ROTATIONS && Number.isFinite(NAV_ROTATIONS.techstack);
     return hasKey
@@ -111,7 +107,6 @@ const TechStack = () => {
               isVisible ? "pointer-events-auto" : "pointer-events-none"
           }`}
       >
-        {/* Projects-style button */}
         <button
             className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-900/40 text-cyan-200 font-semibold text-lg rounded-full border border-white hover:bg-cyan-900/55 transition"
             onClick={toggleCard}

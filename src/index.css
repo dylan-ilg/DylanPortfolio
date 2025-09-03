@@ -189,8 +189,8 @@ body:has(.card[data-color="green"]:hover) {
 
 .star-wars-title {
   font-family: 'StarJout', sans-serif;
-  color: #ffe81f; /* Yellow fill */
-  -webkit-text-stroke: 2px black; /* Thick black outline */
+  color: #ffe81f;
+  -webkit-text-stroke: 2px black;
   text-shadow: none;
 }
 html, body {

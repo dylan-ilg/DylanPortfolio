@@ -69,22 +69,28 @@ const useRotationHelper = () => {
   const onPointerUp = () => setIsRotating(false);
 
   useEffect(() => {
-    const handleWheel = (e) => {
-      console.log(
-        "[WHEEL EVENT] target:",
-        e.target,
-        "| closest .scroll-area:",
-        e.target.closest?.(".scroll-area")
-      );
+    // ----------------- WHEEL → ROTATION MAPPING -----------------
+    // Default: VERTICAL SCROLL rotates (existing behavior)
+    const mapWheelToRotation =
+      (e) => -e.deltaY * 0.001;
 
-      // Only rotate if not inside any scrollable card
+    /* -----------------------------------------------------------
+       ALT: HORIZONTAL SCROLL rotates (trackpad side-to-side or Shift+Wheel)
+       To try this, comment out the line above and UNCOMMENT below.
+    ----------------------------------------------------------- */
+    // const mapWheelToRotation =
+    //   (e) => e.deltaX * 0.001;
+
+    const handleWheel = (e) => {
       if (e.target.closest?.(".scroll-area")) {
-        console.log("[WHEEL EVENT] Inside scroll area → skipping rotation");
         return;
       }
 
+      if (!rotationRef.current) return;
+
       e.preventDefault();
-      const delta = -e.deltaY * 0.001;
+      const delta = mapWheelToRotation(e);
+
       rotationRef.current.rotation.y += delta;
       rotationSpeed.current = delta;
       updateRotation(rotationRef.current.rotation.y);
@@ -92,7 +98,6 @@ const useRotationHelper = () => {
 
     const handleTouchMove = (e) => {
       if (e.target.closest?.(".scroll-area")) {
-        console.log("[TOUCH MOVE] Inside scroll area → skipping rotation");
         return;
       }
       e.preventDefault();
