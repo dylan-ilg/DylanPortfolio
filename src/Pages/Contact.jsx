@@ -30,8 +30,9 @@ const Contact = () => {
         isVisible ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
+      {/* Projects-style toggle button */}
       <button
-        className="inline-flex items-center gap-2 px-4 py-2 bg-white bg-opacity-20 text-cyan-100 font-semibold text-lg rounded-full border border-white hover:bg-opacity-30 transition"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-900/40 text-cyan-200 font-semibold text-lg rounded-full border border-white hover:bg-cyan-900/55 transition"
         onClick={toggleCard}
       >
         {expanded ? <FiChevronUp size={20} /> : <FiChevronDown size={20} />}
@@ -46,29 +47,33 @@ const Contact = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4 }}
-            className="mt-6 bg-green-400 bg-opacity-80 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-white overflow-hidden"
+            // Projects-style panel colors
+            className="mt-6 bg-cyan-900/40 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-200 overflow-hidden"
           >
             <div
               className="overflow-y-auto p-6 scroll-area"
               style={{ maxHeight: "400px" }}
               onWheel={(e) => e.stopPropagation()}
             >
-              <h2 className="text-2xl font-bold mb-4">Let’s Connect</h2>
-              <p className="mb-6">
+              <h2 className="text-2xl font-bold mb-4 text-cyan-100 drop-shadow">
+                Let’s Connect
+              </h2>
+              <p className="mb-6 max-w-3xl mx-auto">
                 Whether you’re hiring for a role, seeking a collaborator, or just want to chat about tech — I’d
                 love to connect and see how I can add value to your team.
               </p>
 
-              <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-col items-center gap-3">
                 {/* LinkedIn */}
                 <a
                   href="https://www.linkedin.com/in/dylan-ilg/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-blue-200 transition"
+                  aria-label="Open LinkedIn"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/70 bg-cyan-900/30 hover:bg-cyan-900/50 transition"
                 >
-                  <FaLinkedin size={28} />
-                  <span>LinkedIn</span>
+                  <FaLinkedin size={20} />
+                  <span className="text-sm text-cyan-100">LinkedIn</span>
                 </a>
 
                 {/* Instagram */}
@@ -76,10 +81,11 @@ const Contact = () => {
                   href="https://www.instagram.com/dylan.ilg/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-pink-200 transition"
+                  aria-label="Open Instagram"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/70 bg-cyan-900/30 hover:bg-cyan-900/50 transition"
                 >
-                  <FaInstagram size={28} />
-                  <span>Instagram</span>
+                  <FaInstagram size={20} />
+                  <span className="text-sm text-cyan-100">Instagram</span>
                 </a>
 
                 {/* GitHub */}
@@ -87,19 +93,23 @@ const Contact = () => {
                   href="https://github.com/dylan-ilg"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-gray-300 transition"
+                  aria-label="Open GitHub"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/70 bg-cyan-900/30 hover:bg-cyan-900/50 transition"
                 >
-                  <FaGithub size={28} />
-                  <span>GitHub</span>
+                  <FaGithub size={20} />
+                  <span className="text-sm text-cyan-100">GitHub</span>
                 </a>
 
-                {/* Email */}
+                {/* Email (copy to clipboard) */}
                 <button
                   onClick={handleCopyEmail}
-                  className="flex items-center gap-2 hover:text-yellow-200 transition"
+                  aria-label="Copy email address"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/70 bg-cyan-900/30 hover:bg-cyan-900/50 transition"
                 >
-                  <MdEmail size={28} />
-                  <span>dylan.scott.ilg@gmail.com {copied && "(Copied!)"}</span>
+                  <MdEmail size={20} />
+                  <span className="text-sm text-cyan-100">
+                    dylan.scott.ilg@gmail.com {copied && "(Copied!)"}
+                  </span>
                 </button>
               </div>
             </div>
