@@ -1,7 +1,7 @@
 # 🌌 Dylan Ilg – Personal Portfolio Website
 
 An interactive 3D portfolio built with **React, Vite, and Three.js (via @react-three/fiber)**.  
-This project showcases my skills, projects, and contact information in a unique space-themed environment with smooth scene rotation and animations.
+This project showcases my skills, projects, and contact information in a unique Star-Wars environment to add a bit of my own personality to it.
 
 ## 🚀 Features
 
@@ -21,7 +21,7 @@ This project showcases my skills, projects, and contact information in a unique 
   - Glassmorphism & neo-brutalism styles for a unique look.  
 
 - **Performance**  
-  - Vite for blazing-fast dev/build.  
+  - Vite for fast dev/build.  
   - Suspense fallback loader for models.  
   - Modularized React components with context-based scene rotation management.  
 
