@@ -30,7 +30,6 @@ const Contact = () => {
         isVisible ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
-      {/* Projects-style toggle button */}
       <button
         className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-900/40 text-cyan-200 font-semibold text-lg rounded-full border border-white hover:bg-cyan-900/55 transition"
         onClick={toggleCard}

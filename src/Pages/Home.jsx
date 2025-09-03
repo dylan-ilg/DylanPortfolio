@@ -11,10 +11,7 @@ import HeroBanner from '../Components/HeroBanner.jsx';
 import { useSceneRotation } from '../helpers/SceneRotation';
 import { RotationBehavior } from '../helpers/RotationHelper';
 import { About, Contact, Projects, TechStack } from './index.js';
-/* ----------------------------- helpers ---------------------------------- */
 
-// Copies target's world pose each frame, then applies a local-space offset.
-// By default, it does NOT inherit target scale, so model size stays sane.
 const FollowAnchor = ({ targetRef, localOffset = [0, 0, 0], inheritScale = false, children }) => {
   const ref = useRef();
   const offset = useMemo(() => new THREE.Vector3(...localOffset), [localOffset]);
@@ -26,18 +23,15 @@ const FollowAnchor = ({ targetRef, localOffset = [0, 0, 0], inheritScale = false
 
     t.updateMatrixWorld(true);
 
-    // Copy world position & rotation
     t.getWorldPosition(g.position);
     t.getWorldQuaternion(g.quaternion);
 
-    // Scale handling
     if (inheritScale) {
       t.getWorldScale(g.scale);
     } else {
       g.scale.set(1, 1, 1);
     }
 
-    // Apply local offset in the target's local orientation
     const o = offset.clone().applyQuaternion(g.quaternion);
     g.position.add(o);
   });
@@ -45,7 +39,6 @@ const FollowAnchor = ({ targetRef, localOffset = [0, 0, 0], inheritScale = false
   return <group ref={ref}>{children}</group>;
 };
 
-// One-shot helper to estimate "radius" of the target (largest half-extent in world space)
 const useWorldRadius = (objRef) => {
   const [r, setR] = useState(0);
   useEffect(() => {
@@ -59,7 +52,6 @@ const useWorldRadius = (objRef) => {
   return r;
 };
 
-// Keeps a group's Y rotation synced to a source (your existing orbit behavior)
 const OrbitSync = ({ sourceRef, targetRef }) => {
   useFrame(() => {
     if (sourceRef.current?.rotation && targetRef.current) {
@@ -69,7 +61,6 @@ const OrbitSync = ({ sourceRef, targetRef }) => {
   return null;
 };
 
-/* ------------------------------- page ----------------------------------- */
 
 const Home = () => {
   const {
@@ -87,12 +78,10 @@ const Home = () => {
   const xwingOrbitRef = useRef();
   const spaceOrbitRef = useRef();
 
-  // Planet radius in world space (so we can sit the Falcon just off its surface)
   const planetRadius = useWorldRadius(rotationRef);
 
   return (
     <main className="w-full min-h-screen bg-black text-white overflow-x-hidden">
-      {/* === CANVAS === */}
       <section className="w-full h-screen relative">
         <Canvas
           className={`absolute inset-0 z-0 bg-transparent ${isRotating ? 'cursor-grabbing' : 'cursor-grab'}`}
@@ -110,7 +99,6 @@ const Home = () => {
             <hemisphereLight intensity={0.3} groundColor="black" />
             <pointLight position={[0, 0, 11]} intensity={20} distance={50} color="#ffffff" />
 
-            {/* Spotlight target for TIE */}
             <primitive object={tieTargetRef.current} position={[-4, -1, 5.5]} />
             <spotLight
               position={[0, 0, 10]}
@@ -128,7 +116,7 @@ const Home = () => {
               <XWing position={[3, -1, 4]} scale={[0.02, 0.02, 0.02]} rotation={[0.9, -4.4, 0]} />
             </group>
 
-            {/* PLANET (rotate this with your rotationRef) */}
+            {/* PLANET */}
             <Planet
               position={[0, -7, -2]}
               scale={[4.5, 4.5, 4.5]}
@@ -136,21 +124,19 @@ const Home = () => {
               ref={rotationRef}
             />
 
-            {/* FALCON — relative to planet */}
+            {/* FALCON */}
             <FollowAnchor
               targetRef={rotationRef}
-              // Put Falcon just off the surface, to the planet's +X and a touch forward:
               localOffset={[
-                (planetRadius || 2) + 1.25,   // +X out from center by radius + gap
-                6.3,                           // slight Y lift
-                -5                            // small Z offset towards camera
+                (planetRadius || 2) + 1.25,
+                6.3,
+                -5
               ]}
               inheritScale={false}
             >
               <MillenniumFalcon
-                // Size the ship via scale — thanks to <Center/>, this scales from its center.
                 scale={[0.9, 0.9, 0.9]}
-                rotation={[0.12, -2.5, -1.8]} // orient relative to the anchor
+                rotation={[0.12, -2.5, -1.8]}
               />
             </FollowAnchor>
 
@@ -171,7 +157,6 @@ const Home = () => {
               setRotationY={setRotationY}
             />
 
-            {/* Sync other orbits (Falcon follows the planet via FollowAnchor; no sync needed) */}
             <OrbitSync sourceRef={rotationRef} targetRef={xwingOrbitRef} />
             <OrbitSync sourceRef={rotationRef} targetRef={tieOrbitRef} />
             <OrbitSync sourceRef={rotationRef} targetRef={spaceOrbitRef} />
