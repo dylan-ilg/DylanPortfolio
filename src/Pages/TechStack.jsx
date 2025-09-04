@@ -26,7 +26,6 @@ import {
 import { FaJava, FaAws } from "react-icons/fa";
 import { TbApi } from "react-icons/tb";
 
-
 const TWO_PI = Math.PI * 2;
 function angleDiff(a, b) {
   let d = (b - a) % TWO_PI;
@@ -43,42 +42,42 @@ const SECTIONS = [
   {
     title: "Front End",
     items: [
-      { name: "React",      icon: <SiReact className="w-8 h-8 text-cyan-400" /> },
-      { name: "MUI",        icon: <SiMui className="w-8 h-8 text-sky-400" /> },
+      { name: "React", icon: <SiReact className="w-8 h-8 text-cyan-400" /> },
+      { name: "MUI", icon: <SiMui className="w-8 h-8 text-sky-400" /> },
       { name: "JavaScript", icon: <SiJavascript className="w-8 h-8 text-yellow-400" /> },
-      { name: "ThreeJS",    icon: <SiThreedotjs className="w-8 h-8 text-gray-200" /> },
-      { name: "CSS",        icon: <SiCss3 className="w-8 h-8 text-blue-500" /> },
-      { name: "HTML",       icon: <SiHtml5 className="w-8 h-8 text-orange-500" /> },
+      { name: "ThreeJS", icon: <SiThreedotjs className="w-8 h-8 text-gray-200" /> },
+      { name: "CSS", icon: <SiCss3 className="w-8 h-8 text-blue-500" /> },
+      { name: "HTML", icon: <SiHtml5 className="w-8 h-8 text-orange-500" /> },
     ],
   },
   {
     title: "Back End",
     items: [
-      { name: "Python",     icon: <SiPython className="w-8 h-8 text-blue-400" /> },
-      { name: "Java",       icon: <FaJava className="w-8 h-8 text-red-500" /> },
-      { name: "C",          icon: <SiC className="w-8 h-8 text-blue-600" /> },
-      { name: "Django",     icon: <SiDjango className="w-8 h-8 text-green-500" /> },
-      { name: "DRF",        icon: <TbApi className="w-8 h-8 text-rose-400" /> },
-      { name: "Maven",      icon: <SiApachemaven className="w-8 h-8 text-red-600" /> },
+      { name: "Python", icon: <SiPython className="w-8 h-8 text-blue-400" /> },
+      { name: "Java", icon: <FaJava className="w-8 h-8 text-red-500" /> },
+      { name: "C", icon: <SiC className="w-8 h-8 text-blue-600" /> },
+      { name: "Django", icon: <SiDjango className="w-8 h-8 text-green-500" /> },
+      { name: "DRF", icon: <TbApi className="w-8 h-8 text-rose-400" /> },
+      { name: "Maven", icon: <SiApachemaven className="w-8 h-8 text-red-600" /> },
       { name: "PostgreSQL", icon: <SiPostgresql className="w-8 h-8 text-sky-400" /> },
     ],
   },
   {
     title: "Testing / Deployment",
     items: [
-      { name: "AWS",        icon: <FaAws className="w-8 h-8" /> },
-      { name: "JUnit",      icon: <SiJunit5 className="w-8 h-8 text-green-600" /> },
-      { name: "Postman",    icon: <SiPostman className="w-8 h-8 text-orange-500" /> },
-      { name: "Figma",      icon: <SiFigma className="w-8 h-8 text-pink-500" /> },
-      { name: "Swagger",    icon: <SiSwagger className="w-8 h-8 text-green-500" /> },
+      { name: "AWS", icon: <FaAws className="w-8 h-8" /> },
+      { name: "JUnit", icon: <SiJunit5 className="w-8 h-8 text-green-600" /> },
+      { name: "Postman", icon: <SiPostman className="w-8 h-8 text-orange-500" /> },
+      { name: "Figma", icon: <SiFigma className="w-8 h-8 text-pink-500" /> },
+      { name: "Swagger", icon: <SiSwagger className="w-8 h-8 text-green-500" /> },
     ],
   },
   {
     title: "Developer Tools",
     items: [
-      { name: "Git",        icon: <SiGit className="w-8 h-8 text-orange-600" /> },
-      { name: "GitHub",     icon: <SiGithub className="w-8 h-8 text-gray-200" /> },
-      { name: "Jira",       icon: <SiJira className="w-8 h-8 text-blue-500" /> },
+      { name: "Git", icon: <SiGit className="w-8 h-8 text-orange-600" /> },
+      { name: "GitHub", icon: <SiGithub className="w-8 h-8 text-gray-200" /> },
+      { name: "Jira", icon: <SiJira className="w-8 h-8 text-blue-500" /> },
     ],
   },
 ];
@@ -123,18 +122,19 @@ const TechStack = () => {
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="mt-6 bg-cyan-900/40 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-200 overflow-hidden"
+                  className="mt-6 bg-cyan-900/40 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-200 overflow-visible sm:overflow-hidden"
               >
                 <div
-                    className="overflow-y-auto p-6"
-                    style={{ maxHeight: "400px" }}
+                    className="p-6 overflow-y-hidden sm:overflow-y-auto max-h-none sm:max-h-[400px]"
+                    style={{ WebkitOverflowScrolling: "touch" }}
                     onWheel={(e) => e.stopPropagation()}
                 >
                   <h2 className="text-2xl font-bold mb-2 text-cyan-100 drop-shadow">
                     Tools I Work With
                   </h2>
                   <p className="mb-6 max-w-3xl mx-auto">
-                    I ship with React on the front end and Python/Django on the back, and use modern tooling end-to-end.
+                    I ship with React on the front end and Python/Django on the back,
+                    and use modern tooling end-to-end.
                   </p>
 
                   {SECTIONS.map((section, sIdx) => (
