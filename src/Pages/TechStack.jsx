@@ -42,42 +42,42 @@ const SECTIONS = [
   {
     title: "Front End",
     items: [
-      { name: "React", icon: <SiReact className="w-8 h-8 text-cyan-400" /> },
-      { name: "MUI", icon: <SiMui className="w-8 h-8 text-sky-400" /> },
-      { name: "JavaScript", icon: <SiJavascript className="w-8 h-8 text-yellow-400" /> },
-      { name: "ThreeJS", icon: <SiThreedotjs className="w-8 h-8 text-gray-200" /> },
-      { name: "CSS", icon: <SiCss3 className="w-8 h-8 text-blue-500" /> },
-      { name: "HTML", icon: <SiHtml5 className="w-8 h-8 text-orange-500" /> },
+      { name: "React", icon: <SiReact className="w-7 h-7 sm:w-8 sm:h-8 text-cyan-400" /> },
+      { name: "MUI", icon: <SiMui className="w-7 h-7 sm:w-8 sm:h-8 text-sky-400" /> },
+      { name: "JavaScript", icon: <SiJavascript className="w-7 h-7 sm:w-8 sm:h-8 text-yellow-400" /> },
+      { name: "ThreeJS", icon: <SiThreedotjs className="w-7 h-7 sm:w-8 sm:h-8 text-gray-200" /> },
+      { name: "CSS", icon: <SiCss3 className="w-7 h-7 sm:w-8 sm:h-8 text-blue-500" /> },
+      { name: "HTML", icon: <SiHtml5 className="w-7 h-7 sm:w-8 sm:h-8 text-orange-500" /> },
     ],
   },
   {
     title: "Back End",
     items: [
-      { name: "Python", icon: <SiPython className="w-8 h-8 text-blue-400" /> },
-      { name: "Java", icon: <FaJava className="w-8 h-8 text-red-500" /> },
-      { name: "C", icon: <SiC className="w-8 h-8 text-blue-600" /> },
-      { name: "Django", icon: <SiDjango className="w-8 h-8 text-green-500" /> },
-      { name: "DRF", icon: <TbApi className="w-8 h-8 text-rose-400" /> },
-      { name: "Maven", icon: <SiApachemaven className="w-8 h-8 text-red-600" /> },
-      { name: "PostgreSQL", icon: <SiPostgresql className="w-8 h-8 text-sky-400" /> },
+      { name: "Python", icon: <SiPython className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" /> },
+      { name: "Java", icon: <FaJava className="w-7 h-7 sm:w-8 sm:h-8 text-red-500" /> },
+      { name: "C", icon: <SiC className="w-7 h-7 sm:w-8 sm:h-8 text-blue-600" /> },
+      { name: "Django", icon: <SiDjango className="w-7 h-7 sm:w-8 sm:h-8 text-green-500" /> },
+      { name: "DRF", icon: <TbApi className="w-7 h-7 sm:w-8 sm:h-8 text-rose-400" /> },
+      { name: "Maven", icon: <SiApachemaven className="w-7 h-7 sm:w-8 sm:h-8 text-red-600" /> },
+      { name: "PostgreSQL", icon: <SiPostgresql className="w-7 h-7 sm:w-8 sm:h-8 text-sky-400" /> },
     ],
   },
   {
     title: "Testing / Deployment",
     items: [
-      { name: "AWS", icon: <FaAws className="w-8 h-8" /> },
-      { name: "JUnit", icon: <SiJunit5 className="w-8 h-8 text-green-600" /> },
-      { name: "Postman", icon: <SiPostman className="w-8 h-8 text-orange-500" /> },
-      { name: "Figma", icon: <SiFigma className="w-8 h-8 text-pink-500" /> },
-      { name: "Swagger", icon: <SiSwagger className="w-8 h-8 text-green-500" /> },
+      { name: "AWS", icon: <FaAws className="w-7 h-7 sm:w-8 sm:h-8" /> },
+      { name: "JUnit", icon: <SiJunit5 className="w-7 h-7 sm:w-8 sm:h-8 text-green-600" /> },
+      { name: "Postman", icon: <SiPostman className="w-7 h-7 sm:w-8 sm:h-8 text-orange-500" /> },
+      { name: "Figma", icon: <SiFigma className="w-7 h-7 sm:w-8 sm:h-8 text-pink-500" /> },
+      { name: "Swagger", icon: <SiSwagger className="w-7 h-7 sm:w-8 sm:h-8 text-green-500" /> },
     ],
   },
   {
     title: "Developer Tools",
     items: [
-      { name: "Git", icon: <SiGit className="w-8 h-8 text-orange-600" /> },
-      { name: "GitHub", icon: <SiGithub className="w-8 h-8 text-gray-200" /> },
-      { name: "Jira", icon: <SiJira className="w-8 h-8 text-blue-500" /> },
+      { name: "Git", icon: <SiGit className="w-7 h-7 sm:w-8 sm:h-8 text-orange-600" /> },
+      { name: "GitHub", icon: <SiGithub className="w-7 h-7 sm:w-8 sm:h-8 text-gray-200" /> },
+      { name: "Jira", icon: <SiJira className="w-7 h-7 sm:w-8 sm:h-8 text-blue-500" /> },
     ],
   },
 ];
@@ -124,41 +124,43 @@ const TechStack = () => {
                   transition={{ duration: 0.4 }}
                   className="mt-6 bg-cyan-900/40 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-200 overflow-hidden"
               >
-
                 <div
                     className="
-                p-6
+                p-4 sm:p-6
                 overflow-y-auto
-                max-h-[calc(100dvh-9rem)]
+                max-h-[65svh]
                 sm:max-h-[400px]
                 overscroll-contain
                 [touch-action:pan-y]
               "
-                    style={{ WebkitOverflowScrolling: "touch" }}
+                    style={{
+                      WebkitOverflowScrolling: "touch",
+                      paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))",
+                    }}
                     onWheel={(e) => e.stopPropagation()}
                     onTouchMove={(e) => e.stopPropagation()}
                 >
                   <h2 className="text-2xl font-bold mb-2 text-cyan-100 drop-shadow">
                     Tools I Work With
                   </h2>
-                  <p className="mb-6 max-w-3xl mx-auto">
+                  <p className="mb-5 sm:mb-6 max-w-3xl mx-auto">
                     I ship with React on the front end and Python/Django on the back,
                     and use modern tooling end-to-end.
                   </p>
 
                   {SECTIONS.map((section, sIdx) => (
-                      <div key={section.title} className={sIdx > 0 ? "mt-8" : ""}>
-                        <h3 className="text-xl font-semibold mb-4 text-cyan-100 drop-shadow">
+                      <div key={section.title} className={sIdx > 0 ? "mt-6 sm:mt-8" : ""}>
+                        <h3 className="text-xl font-semibold mb-3 sm:mb-4 text-cyan-100 drop-shadow">
                           {section.title}
                         </h3>
-                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 justify-items-center">
+                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 justify-items-center">
                           {section.items.map((t) => (
                               <div
                                   key={t.name}
                                   className="flex flex-col items-center hover:scale-110 transition-transform"
                               >
                                 {t.icon}
-                                <span className="text-sm mt-1 text-cyan-100 drop-shadow-sm">
+                                <span className="text-xs sm:text-sm mt-1 text-cyan-100 drop-shadow-sm">
                           {t.name}
                         </span>
                               </div>

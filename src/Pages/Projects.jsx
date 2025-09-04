@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSceneRotation } from "../helpers/SceneRotation";
 import { isInViewRange, NAV_ROTATIONS } from "../helpers/RotationHelper";
-import { FiChevronDown, FiChevronUp, FiExternalLink } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { FaGithub, FaRegFileAlt } from "react-icons/fa";
-
 
 const projects = [
   {
@@ -40,7 +39,6 @@ const projects = [
     tech: ["Java", "Maven", "JDA API"],
   },
 ];
-
 
 const Chip = ({ children }) => (
   <span
@@ -136,22 +134,6 @@ const Projects = () => {
 
                     <div className="flex justify-between items-end p-4 min-h-[72px]">
                       <div className="flex gap-2 flex-wrap">
-                        {p.website && (
-                          <a
-                            href={p.website}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="
-                              inline-flex items-center gap-1 px-3 py-1 rounded-full
-                              border border-white/70 bg-cyan-900/30 hover:bg-cyan-900/50
-                              transition text-sm
-                            "
-                            aria-label={`Open ${p.title} website`}
-                          >
-                            <FiExternalLink className="h-4 w-4" />
-                            Website
-                          </a>
-                        )}
                         {p.paper && (
                           <a
                             href={p.paper}
