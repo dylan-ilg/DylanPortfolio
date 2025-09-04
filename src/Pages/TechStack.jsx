@@ -122,12 +122,21 @@ const TechStack = () => {
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="mt-6 bg-cyan-900/40 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-200 overflow-visible sm:overflow-hidden"
+                  className="mt-6 bg-cyan-900/40 border-2 border-white rounded-xl backdrop-blur-md shadow-xl text-cyan-200 overflow-hidden"
               >
+
                 <div
-                    className="p-6 overflow-y-hidden sm:overflow-y-auto max-h-none sm:max-h-[400px]"
+                    className="
+                p-6
+                overflow-y-auto
+                max-h-[calc(100dvh-9rem)]
+                sm:max-h-[400px]
+                overscroll-contain
+                [touch-action:pan-y]
+              "
                     style={{ WebkitOverflowScrolling: "touch" }}
                     onWheel={(e) => e.stopPropagation()}
+                    onTouchMove={(e) => e.stopPropagation()}
                 >
                   <h2 className="text-2xl font-bold mb-2 text-cyan-100 drop-shadow">
                     Tools I Work With
