@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useSceneRotation } from "../helpers/SceneRotation";
 import { rotateToAngle, NAV_ROTATIONS } from "../helpers/RotationHelper";
 
-/* ----------------------------- helpers ---------------------------------- */
 
 function angleDiff(a, b) {
   const TWO_PI = Math.PI * 2;
@@ -72,59 +71,62 @@ function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-
-
-        <nav className="hidden sm:flex gap-4 sm:gap-6">
+      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center">
+        <nav className="hidden sm:flex justify-center gap-4 sm:gap-6 w-full">
           {items.map(({ key, label }) => (
             <button
               key={key}
               onClick={() => handleNavClick(key)}
-              className="px-5 py-2.5 bg-sky-300/70 border-2 border-white rounded-full text-white font-semibold text-sm tracking-wider shadow-lg hover:text-amber-200 transition-colors"
+              className="px-5 py-2.5 bg-sky-300 bg-opacity-70 border-2 border-white rounded-full text-white font-semibold text-sm tracking-wider shadow-lg hover:text-amber-200 transition-colors"
             >
               {label}
             </button>
           ))}
         </nav>
 
-        <button
-          type="button"
-          className="sm:hidden inline-flex items-center justify-center p-2 rounded-md border border-white/70 bg-sky-300/70 text-white focus:outline-none focus:ring-2 focus:ring-white/70"
-          aria-label="Toggle navigation menu"
-          aria-expanded={isOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setIsOpen((v) => !v)}
-        >
-          {/* Icon changes between hamburger and X */}
-          <svg
-            className={`h-6 w-6 ${isOpen ? "hidden" : "block"}`}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+        <div className="flex sm:hidden ml-auto">
+          <button
+            type="button"
+            className="inline-flex items-center justify-center p-2 rounded-md border border-white/70 bg-sky-300/70 text-white focus:outline-none focus:ring-2 focus:ring-white/70"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setIsOpen((v) => !v)}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          <svg
-            className={`h-6 w-6 ${isOpen ? "block" : "hidden"}`}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+            {/* Hamburger icon */}
+            <svg
+              className={`h-6 w-6 ${isOpen ? "hidden" : "block"}`}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            {/* Close (X) icon */}
+            <svg
+              className={`h-6 w-6 ${isOpen ? "block" : "hidden"}`}
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       </div>
 
+      {/* Mobile dropdown panel */}
       <div
         id="mobile-menu"
         className={`sm:hidden transition-all duration-200 overflow-hidden ${
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
+
         <nav className="max-w-5xl mx-auto px-4 pb-3 pt-1">
           <ul className="flex flex-col gap-2">
             {items.map(({ key, label }) => (
