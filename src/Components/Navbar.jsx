@@ -126,6 +126,7 @@ function Navbar() {
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
+
         <nav className="max-w-5xl mx-auto px-4 pb-3 pt-1">
           <ul className="flex flex-col gap-2">
             {items.map(({ key, label }) => (
