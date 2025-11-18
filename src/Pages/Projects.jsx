@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSceneRotation } from "../helpers/SceneRotation";
 import { isInViewRange, NAV_ROTATIONS } from "../helpers/RotationHelper";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { FaGithub, FaRegFileAlt } from "react-icons/fa";
+import { FaGithub, FaRegFileAlt, FaExternalLinkAlt } from "react-icons/fa";
 
 const projects = [
   {
@@ -152,16 +152,32 @@ const Projects = () => {
                         )}
                       </div>
 
-                      <a
-                        href={p.repo}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`Open ${p.title} on GitHub`}
-                        className="inline-flex items-center justify-center rounded-full
-                                   border border-white/70 bg-white/10 p-2 hover:bg-white/20 transition"
-                      >
-                        <FaGithub className="h-5 w-5" />
-                      </a>
+                      <div className="flex gap-2">
+                        {p.website && (
+                          <a
+                            href={p.website}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`Visit ${p.title} website`}
+                            className="inline-flex items-center justify-center rounded-full
+                                       border border-white/70 bg-white/10 p-2 hover:bg-white/20 transition"
+                          >
+                            <FaExternalLinkAlt className="h-5 w-5" />
+                          </a>
+                        )}
+                        {p.repo && (
+                          <a
+                            href={p.repo}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`Open ${p.title} on GitHub`}
+                            className="inline-flex items-center justify-center rounded-full
+                                       border border-white/70 bg-white/10 p-2 hover:bg-white/20 transition"
+                          >
+                            <FaGithub className="h-5 w-5" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </motion.article>
                 ))}
