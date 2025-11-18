@@ -15,9 +15,9 @@ const projects = [
     tech: ["React", "Django", "MUI", "Python", "Javascript", "PostgreSQL"],
   },
   {
-    title: "OpenAI API Project",
+    title: "GymGPT",
     img: "/ChatGPT.jpg",
-    repo: "https://github.com/dylan-ilg/ProjectNova",
+    website: "https://gym-gpt.framer.website/",
     tech: ["Next.js", "OpenAI API", "PostgreSQL", "tailwind"],
   },
   {
