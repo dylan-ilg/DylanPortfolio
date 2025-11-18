@@ -18,7 +18,7 @@ const projects = [
     title: "GymGPT",
     img: "/ChatGPT.jpg",
     website: "https://gym-gpt.framer.website/",
-    tech: ["Next.js", "OpenAI API", "PostgreSQL", "tailwind"],
+    tech: ["React Native", "OpenAI Realtime API", "Firebase"],
   },
   {
     title: "ThreeJs 3D Portfolio",
